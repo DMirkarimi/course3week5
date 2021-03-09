@@ -42,7 +42,7 @@ def shuffler(genes):
 
     with open('output.fasta', 'a+') as f:
         for header, seq in genes:
-            f.write(header)
+            f.write(header+'\n')
             f.write(seq + '\n\n')
             for i in range(100):
                 f.write(header + ' SHUFFLE' + str(i) + '\n')
