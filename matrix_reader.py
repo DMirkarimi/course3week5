@@ -22,7 +22,7 @@ if __name__ == '__main__':
     matrix = read_matrix('matrix_real.pim')
     inds = np.tril_indices(len(matrix), -1)
     percs = matrix[inds]
-    plt.hist(percs, bins=50, lw=1)
-    # plt.yscale('log')
-    # plt.xticks(np.arange(0, 100, 1.0))
+    bin_width = 1
+    plt.hist(percs, bins=np.arange(0, percs.max()+ 1 + bin_width,
+             bin_width), color='skyblue', ec='royalblue')
     plt.show()
