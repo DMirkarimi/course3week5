@@ -1,5 +1,8 @@
-def get_sequences(file_path: str) -> dict:
-    genes = {}
+import random as rand
+
+
+def get_sequences(file_path: str) -> list:
+    genes = []
     current_seq_list = []
 
     with open(file_path, 'r') as f:
@@ -13,7 +16,7 @@ def get_sequences(file_path: str) -> dict:
             if line[0] == '>':
                 # Turning sequence list into one string.
                 current_seq = ''.join(current_seq_list)
-                genes[current_header] = current_seq
+                genes.append([current_header, current_seq])
 
                 # Setting the current line as the new current
                 # header.
@@ -27,5 +30,13 @@ def get_sequences(file_path: str) -> dict:
 
         # Turning sequence list into one string.
         current_seq = ''.join(current_seq_list)
-        genes[current_header] = current_seq
+        genes.append([current_header, current_seq])
         return genes
+
+
+def shuffle_string(seq: str) -> str:
+    shuffle_list = list(seq)
+    rand.shuffle(shuffle_list)
+    return ''.join(shuffle_list)
+
+
