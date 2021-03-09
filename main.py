@@ -45,7 +45,9 @@ def shuffler(genes):
             f.write(header+'\n')
             f.write(seq + '\n\n')
             for i in range(100):
-                f.write(header + ' SHUFFLE' + str(i) + '\n')
+                adjusted_header = header.split(' ')[0]+'_SHUFFLE' + \
+                                  str(i)
+                f.write(adjusted_header + '\n')
                 f.write(shuffle_string(seq) + '\n\n')
 
 
