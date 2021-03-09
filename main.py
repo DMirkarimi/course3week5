@@ -6,7 +6,7 @@ def get_sequences(file_path: str) -> list:
     current_seq_list = []
 
     with open(file_path, 'r') as f:
-        current_header = next(f)
+        current_header = next(f).rstrip().upper()
         for raw_line in f:
             # Removing trailing newlines.
             line = raw_line.rstrip().upper()
@@ -34,9 +34,22 @@ def get_sequences(file_path: str) -> list:
         return genes
 
 
-def shuffle_string(seq: str) -> str:
-    shuffle_list = list(seq)
-    rand.shuffle(shuffle_list)
-    return ''.join(shuffle_list)
+def shuffler(genes):
+    def shuffle_string(seq: str) -> str:
+        shuffle_list = list(seq)
+        rand.shuffle(shuffle_list)
+        return ''.join(shuffle_list)
+
+    with open('output.fasta', 'a+') as f:
+        for header, seq in genes:
+            f.write(header)
+            f.write(seq + '\n\n')
+            for i in range(100):
+                f.write(header + ' SHUFFLE' + str(i) + '\n')
+                f.write(shuffle_string(seq) + '\n\n')
 
 
+if __name__ == '__main__':
+    file = 'surface_protein_seq.fasta'
+    gene_list = get_sequences(file)
+    shuffler(gene_list)
